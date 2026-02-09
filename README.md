@@ -20,7 +20,10 @@ Core Features
 
 ✅ Responsive Design - Mobile-friendly UI with modern styling
 
+
+
 ========= React Concepts Demonstrated ========= 
+
 1.Events - onClick, onChange, onSubmit
 
 2.Conditional Rendering - Empty states, status indicators
