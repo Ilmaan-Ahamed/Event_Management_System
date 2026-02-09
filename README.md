@@ -5,7 +5,9 @@ Overview
 Fully functional, modern React application for managing events. Users can add, view, edit, delete, and filter events with an intuitive interface. This project serves as both an educational React practice project and a portfolio-ready application.
 
 ========= Features ========= 
+
 Core Features
+
 ✅ Add Events - Title, description, date, category, priority, status
 
 ✅ Edit Events - Modify existing event details
