@@ -17,7 +17,7 @@ function App() {
             date        : '2026-01-29',
             category    : 'Work',
             priotity    : 'Medium',
-            status      : 'Past'
+            status      : 'Past',
             completed   : true
         },
         {
@@ -27,7 +27,7 @@ function App() {
             date        : '2026-03-17',
             category    : 'Personal',
             priotity    : 'High',
-            status      : 'Up-comming'
+            status      : 'Up-comming',
             completed   : false
         },
         {
@@ -37,7 +37,7 @@ function App() {
             date        : '2026-02-28',
             category    : 'Work',
             priotity    : 'Low',
-            status      : 'Up-comming'
+            status      : 'Up-comming',
             completed   : false
         },
     ]);
@@ -69,4 +69,43 @@ function App() {
         setIsModalOpen(false);
     };
 
+        // Delete event 
+    const handleDeleteEvent= (id) =>{
+        if (window,confirm('Are you sure you want to delete this event?'))
+        {
+            setEvents(event.filter(event => event.id !==id));
+        }
+    };
+
+        // Click event
+    const handleEditClick = (event) =>{
+        setEditingEvent(event);
+        setIsModalOpen(true);
+    };
+
+    // Filter events based on selection
+    const filteredEvents = events.filter(event => {
+        if (currentFilter === 'all') 
+            return true;
+
+        if (currentFilter === 'Up-Comming')
+
+            return event.status === 'Up-Comming';
+
+        if (currentFilter === 'Past')
+            return event.status === 'Past';
+
+        if (currentFilter === 'completed')
+            return event.completed;
+
+        return true;
+    });
+
+
+    // HTML work into the React Component
+    return (
+
+    )
 }
+
+export default App;
