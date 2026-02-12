@@ -49,12 +49,11 @@ function App() {
 
     // Event Handlers 
         // Add event
-    const handleAddEvent =(eventData) =>{
+    const handleAddEvent =(eventData) => {
         const newEvent ={
             ...eventData,
             id: Date.now(), // Simple ID Generation Using terney operators
-            status: new Date(eventData.date) >= new Date() ? 
-                                                'Up-Comming' : 'Past' 
+            status: new Date(eventData.date) >= new Date() ? 'Up-Comming' : 'Past' 
         };
         setEvents([...events, newEvent]);
         setIsModalOpen(false);
@@ -73,7 +72,7 @@ function App() {
     const handleDeleteEvent= (id) =>{
         if (window,confirm('Are you sure you want to delete this event?'))
         {
-            setEvents(event.filter(event => event.id !==id));
+            setEvents(events.filter(event => event.id !==id));
         }
     };
 
@@ -132,7 +131,7 @@ function App() {
                             <option value="all">All Events</option>
                             <option value="Up-Comming">Up-Coming</option>
                             <option value="Past">Past</option>
-                            <option value="completed">Completed</option>
+                            <option value="Completed">Completed</option>
                         </select>
                     </div>
                 </div>
@@ -146,7 +145,7 @@ function App() {
                 {/* React Portal for Modal */}
                 {isModalOpen && (
                     <Modal onClose={() => setIsModalOpen(false)}>
-                        <Eventfrorm
+                        <EventFrom
                             event={editingEvent}
                             onSubmit={editingEvent ? handleEditClick : handleAddEvent}
                             onCancel={() => setIsModalOpen(false)}
@@ -155,7 +154,7 @@ function App() {
                 )}
 
                 {/* Suspences for lazy loading */}
-                <section>
+                <section className={styles.adminSection}>
                     <h2>Admin Panel</h2>
                     <Suspense fallback={<div className={styles.loading}> Loading Admin Panel... </div>}>
                         <AdminPanel events={events}/>
@@ -163,16 +162,11 @@ function App() {
                 </section>
             </main>
 
-
-
-
-
-
-
-
-
+            <footer>
+                <p>| Eventora 2026 | </p>
+            </footer>
         </div>
-    )
+    );
 }
 
 export default App;
