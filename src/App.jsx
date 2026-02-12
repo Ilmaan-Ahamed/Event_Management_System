@@ -104,7 +104,25 @@ function App() {
 
     // HTML work into the React Component
     return (
+        <div className={styles.App}>
+            <header className={styles.header}>
+                <h1>🔰 Eventora 🔰</h1>
+                <p>Modern Event Management Application</p>
+            </header>
 
+        
+
+
+
+
+
+
+
+
+
+
+
+        </div>
     )
 }
 
