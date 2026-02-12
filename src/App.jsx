@@ -154,6 +154,13 @@ function App() {
                     </Modal>
                 )}
 
+                {/* Suspences for lazy loading */}
+                <section>
+                    <h2>Admin Panel</h2>
+                    <Suspenese fallback={< className={styles.loading}> Loading Admin Panel...}>
+                        <AdminPanel events={events}/>
+                    </Suspenese>
+                </section>
             </main>
 
 
