@@ -157,9 +157,9 @@ function App() {
                 {/* Suspences for lazy loading */}
                 <section>
                     <h2>Admin Panel</h2>
-                    <Suspenese fallback={< className={styles.loading}> Loading Admin Panel...}>
+                    <Suspense fallback={<div className={styles.loading}> Loading Admin Panel... </div>}>
                         <AdminPanel events={events}/>
-                    </Suspenese>
+                    </Suspense>
                 </section>
             </main>
 
