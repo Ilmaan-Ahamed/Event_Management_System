@@ -110,9 +110,20 @@ function App() {
                 <p>Modern Event Management Application</p>
             </header>
 
-        
+            <main className={styles.main}>
+                <div className={styles.controls}>
+                    <button
+                        className={styles.addButton}
+                        onClick={() => {
+                            setEditingEvent(null);
+                            setIsModalOpen(true);
+                        }}
+                    >
+                        + Add New Event
+                    </button>
+                </div>
 
-
+            </main>
 
 
 
