@@ -143,6 +143,17 @@ function App() {
                     onDelete={handleDeleteEvent}
                 />
 
+                {/* React Portal for Modal */}
+                {isModalOpen && (
+                    <Modal onClose={() => setIsModalOpen(false)}>
+                        <Eventfrorm
+                            event={editingEvent}
+                            onSubmit={editingEvent ? handleEditClick : handleAddEvent}
+                            onCancel={() => setIsModalOpen(false)}
+                        />
+                    </Modal>
+                )}
+
             </main>
 
 
