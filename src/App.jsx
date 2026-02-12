@@ -54,7 +54,7 @@ function App() {
             ...eventData,
             id: Date.now(), // Simple ID Generation Using terney operators
             status: new Date(eventData.date) >= new Date() ? 
-                                                'Up-Comming' : 'past' 
+                                                'Up-Comming' : 'Past' 
         };
         setEvents([...events, newEvent]);
         setIsModalOpen(false);
@@ -95,7 +95,7 @@ function App() {
         if (currentFilter === 'Past')
             return event.status === 'Past';
 
-        if (currentFilter === 'completed')
+        if (currentFilter === 'Completed')
             return event.completed;
 
         return true;
@@ -121,6 +121,20 @@ function App() {
                     >
                         + Add New Event
                     </button>
+
+                    <div className={styles.filter}>
+                        <label> Filter By: </label>
+                        <select 
+                            value={currentFilter}
+                            onChange={(e) => setCurrentFiller(e.target.value)}
+                            className={styles.filterSelect}
+                        >
+                            <option value="all">All Events</option>
+                            <option value="Up-Comming">Up-Coming</option>
+                            <option value="Past">Past</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
                 </div>
 
             </main>
