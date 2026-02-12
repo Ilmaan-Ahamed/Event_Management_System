@@ -136,6 +136,12 @@ function App() {
                         </select>
                     </div>
                 </div>
+                
+                <EventList 
+                    events={filteredEvents}
+                    onEdit={handleEditClick}
+                    onDelete={handleDeleteEvent}
+                />
 
             </main>
 
