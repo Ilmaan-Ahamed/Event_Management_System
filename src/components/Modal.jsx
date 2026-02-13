@@ -26,4 +26,23 @@ const Modal = ({ children, onclose }) => {
     const handleBackdropClick = (e) =>{
         if (e.target === e.currentTarget) onclose();
     };
-}
+
+    // Create portal to render modal outside main DOM tree
+    return ReactDOM.createPortal(
+        <div className={styles.modalBackdrop} onClick={handleBackdropClick}>
+            <div className={styles.modalContent}>
+                <button 
+                  className={styles.closeButton}
+                  onClick={onclose}
+                  aria-label="Close modal"
+                >
+                    x
+                </button>
+                {children}
+            </div> 
+        </div>,
+        getPortalRoot()
+    );
+};
+
+export default Modal;
