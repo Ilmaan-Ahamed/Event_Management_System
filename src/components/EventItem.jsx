@@ -57,7 +57,7 @@ const EventItem = ({ event, onEdit, onDelete }) => {
 
                 <div className={styles.detailRow}>
                     <span className={styles.detailLable}>Status :</span>
-                    <span className={`${styles.statusBadge} ${styles[`status${event.status}`]}`}>{event.status} </span>
+                    <span className={`${styles.statusBadge} ${styles[`status${event.status}`]}`}>{event.status}</span>
                 </div>
 
                 <div className={styles.detailRow}>
@@ -66,8 +66,32 @@ const EventItem = ({ event, onEdit, onDelete }) => {
                 </div>
             </div>
 
-            
+            <div className={styles.eventActions}>
+                {event.completed && (
+                    <span className={styles.completedLabel}>✓ Completed</span>
+                )}
+
+                <div className={styles.actionButtons}>
+                    <button
+                        onClick={() => onEdit(event)}
+                        className={styles.editButton}
+                        aria-label="Edit event"
+                    >
+                        Edit
+                    </button>
+
+                    <button
+                        onClick={() => onDelete(event.id)}
+                        className={styles.deleteButton}
+                        aria-label="Delete Event"
+                    >
+                        Delete
+                    </button>
+                </div>
+            </div>            
         </div>
-    )
+    );
     
-}
+};
+
+export default EventItem;
