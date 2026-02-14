@@ -1,35 +1,35 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import styles from '../styles/EventForm.module.css';
 
-const EventFrom = ({ event, onSubmit, onCancel}) => {
-    // Initalize form state
-    const [formData, setFormDate] = useEffect({
-        title : '',
-        description : '',
-        date : '',
-        category : 'Personal',
-        priority : 'Medium',
-        completed : false,
+const EventForm = ({ event, onSubmit, onCancel }) => { // Fixed component name
+    // Initialize form state
+    const [formData, setFormData] = useState({ // Fixed: useState instead of useEffect
+        title: '',
+        description: '',
+        date: '',
+        category: 'Personal',
+        priority: 'Medium',
+        completed: false,
     });
 
     // Populate form if editing existing event
-    useEffect(() =>{
-        if(event){
-            setFormDate({
+    useEffect(() => {
+        if (event) {
+            setFormData({
                 title: event.title,
                 description: event.description,
                 date: event.date,
                 category: event.category,
                 priority: event.priority,
                 completed: event.completed || false,
-                        });
-                }
+            });
+        }
     }, [event]);
 
     // Handle input changes for all fields
-    const handleinputChange = (e) => {
+    const handleInputChange = (e) => { // Fixed function name
         const { name, value, type, checked } = e.target;
-        setFormDate(prev => ({
+        setFormData(prev => ({
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }));
@@ -40,100 +40,103 @@ const EventFrom = ({ event, onSubmit, onCancel}) => {
         e.preventDefault();
 
         // Basic validation
-        if (!formData.title.trim() || !formData.date){
-            alert('Please Fill in all Requried fields')
+        if (!formData.title.trim() || !formData.date) {
+            alert('Please Fill in all Required fields'); // Fixed spelling
             return;
         }
-        onSubmit(formData);
+        
+        // Ensure the data includes the id if editing
+        const submitData = event ? { ...formData, id: event.id } : formData;
+        onSubmit(submitData);
     };
 
     return (
-        <form onsubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit} className={styles.form}> {/* Fixed: onSubmit */}
             <h2>{event ? 'Edit Event' : 'Add New Event'}</h2>
 
             {/* Text input */}
             <div className={styles.formGroup}>
                 <label htmlFor="title">Event Title *</label>
-                    <input 
-                        type="text" 
-                        name="title" 
-                        id="title" 
-                        value={formData.title}
-                        onChange={handleinputChange}
-                        placeholder="Enter Event title"
-                        required
-                    />
+                <input 
+                    type="text" 
+                    name="title" 
+                    id="title" 
+                    value={formData.title}
+                    onChange={handleInputChange} {/* Fixed function name */}
+                    placeholder="Enter Event title"
+                    required
+                />
             </div>
 
             {/* Text Area */}
             <div className={styles.formGroup}>
                 <label htmlFor="description">Description</label>
-                    <textarea 
-                        name="description" 
-                        id="description"
-                        value={formData.description}
-                        onChange={handleinputChange}
-                        placeholder="Enter event description"
-                        rows="4"    
-                    />
+                <textarea 
+                    name="description" 
+                    id="description"
+                    value={formData.description}
+                    onChange={handleInputChange} {/* Fixed function name */}
+                    placeholder="Enter event description"
+                    rows="4"    
+                />
             </div>
 
             {/* Date input */}
             <div className={styles.formGroup}>
                 <label htmlFor="date">Date *</label>
-                    <input 
-                        type="text"
-                        id="date" 
-                        name="date"
-                        value={formData.date}
-                        onChange={handleinputChange}
-                        required
-                    />
+                <input 
+                    type="date" {/* Fixed: changed from "text" to "date" */}
+                    id="date" 
+                    name="date"
+                    value={formData.date}
+                    onChange={handleInputChange} {/* Fixed function name */}
+                    required
+                />
             </div>
 
             {/* Radio Buttons for Category */}
             <div className={styles.formGroup}>
                 <label>Category</label>
-                    <div className={styles.radioGroup}>
-                        {['Personal', 'Work', 'Social', 'Education'].map(category => (
-                            <label key={category} className={styles.radioLabel}>  
-                                <input 
-                                    type="radio" 
-                                    name="category"
-                                    value={category}
-                                    checked={formData.category === category}
-                                    onChange={handleinputChange}
-                                />
-                                <span>{category.charAt(0).toUpperCase + category.slice(1)}</span>
-                            </label>
-                        ))}
-                    </div>
+                <div className={styles.radioGroup}>
+                    {['Personal', 'Work', 'Social', 'Education'].map(category => (
+                        <label key={category} className={styles.radioLabel}>  
+                            <input 
+                                type="radio" 
+                                name="category"
+                                value={category}
+                                checked={formData.category === category}
+                                onChange={handleInputChange} {/* Fixed function name */}
+                            />
+                            <span>{category.charAt(0).toUpperCase() + category.slice(1)}</span> {/* Fixed: added () */}
+                        </label>
+                    ))}
+                </div>
             </div>
 
             {/* Select DropDown for Priority */}
             <div className={styles.formGroup}>
                 <label htmlFor="priority">Priority</label>
-                    <select 
-                        name="priority" 
-                        id="priority"
-                        value={formData.priority}
-                        onChange={handleinputChange}
-                        className={styles.select}
-                    >
-                        <option value="Low">Low</option>
-                        <option value="Medium">Medium</option> 
-                        <option value="High">High</option>   
-                    </select>
+                <select 
+                    name="priority" 
+                    id="priority"
+                    value={formData.priority}
+                    onChange={handleInputChange} {/* Fixed function name */}
+                    className={styles.select}
+                >
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option> 
+                    <option value="High">High</option>   
+                </select>
             </div>
 
             {/* CheckBox */}
             <div className={styles.formGroup}>
-                <label className={styles.checkboxLable}>
+                <label className={styles.checkboxLabel}> {/* Fixed class name */}
                     <input 
                         type="checkbox" 
                         name="completed"
                         checked={formData.completed}
-                        onChange={handleinputChange}
+                        onChange={handleInputChange} {/* Fixed function name */}
                     />
                     <span>Mark as completed </span>
                 </label>
@@ -160,4 +163,4 @@ const EventFrom = ({ event, onSubmit, onCancel}) => {
     );
 };
 
-export default EventFrom;
+export default EventForm; // Fixed export name
