@@ -7,8 +7,8 @@ const EventFrom = ({ event, onSubmit, onCancel}) => {
         title : '',
         description : '',
         date : '',
-        category : 'personal',
-        priority : 'medium',
+        category : 'Personal',
+        priority : 'Medium',
         completed : false,
     });
 
@@ -95,7 +95,7 @@ const EventFrom = ({ event, onSubmit, onCancel}) => {
             <div className={styles.formGroup}>
                 <label>Category</label>
                     <div className={styles.radioGroup}>
-                        {['Personal', 'work', 'Social', 'Education'].map(category => (
+                        {['Personal', 'Work', 'Social', 'Education'].map(category => (
                             <label key={category} className={styles.radioLabel}>  
                                 <input 
                                     type="radio" 
@@ -120,9 +120,9 @@ const EventFrom = ({ event, onSubmit, onCancel}) => {
                         onChange={handleinputChange}
                         className={styles.select}
                     >
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option> 
-                        <option value="high">High</option>   
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option> 
+                        <option value="High">High</option>   
                     </select>
             </div>
 
