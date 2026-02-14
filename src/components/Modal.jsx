@@ -1,30 +1,29 @@
-// Modal.jsx
 import React, { useEffect } from "react";
 import ReactDOM from 'react-dom';
-import { getPortalRoot } from '../utils/portal.Root';
+import { getPortalRoot } from '../utils/portalRoot'; // Fixed import path
 import styles from '../styles/Modal.module.css';
 
-const Modal = ({ children, onclose }) => {
+const Modal = ({ children, onClose }) => { // Fixed prop name
     // Close modal on Escape key
     useEffect(() => {
         const handleEscape = (e) => {
-            if (e.key === 'Escape') onclose();
+            if (e.key === 'Escape') onClose(); // Fixed function name
         };
 
         document.addEventListener('keydown', handleEscape);
         return () => document.removeEventListener('keydown', handleEscape);
-    }, [onclose]);
+    }, [onClose]); // Fixed dependency
 
     // Prevent Body Scrolling when modal is open
     useEffect(() => {
         document.body.style.overflow = 'hidden';
         return () => {
             document.body.style.overflow = 'auto';
-        }
+        };
     }, []);
 
-    const handleBackdropClick = (e) =>{
-        if (e.target === e.currentTarget) onclose();
+    const handleBackdropClick = (e) => {
+        if (e.target === e.currentTarget) onClose(); // Fixed function name
     };
 
     // Create portal to render modal outside main DOM tree
@@ -32,14 +31,14 @@ const Modal = ({ children, onclose }) => {
         <div className={styles.modalBackdrop} onClick={handleBackdropClick}>
             <div className={styles.modalContent}>
                 <button 
-                  className={styles.closeButton}
-                  onClick={onclose}
-                  aria-label="Close modal"
+                    className={styles.closeButton}
+                    onClick={onClose} // Fixed prop name
+                    aria-label="Close modal"
                 >
-                    x
+                    × {/* Fixed: changed "x" to multiplication sign */}
                 </button>
                 {children}
-            </div> 
+            </div>
         </div>,
         getPortalRoot()
     );
