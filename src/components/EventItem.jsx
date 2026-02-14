@@ -3,42 +3,44 @@ import styles from '../styles/EventItem.module.css';
 
 const EventItem = ({ event, onEdit, onDelete }) => {
     // Format date for display
-    const formatdate = (datestring) => {
-        return new Date(datestring).toLocaleDateString('en-US', {
-            weekday : 'short',
-            year    : 'numeric',
-            month   : 'short',
-            day     : 'numeric'
+    const formatDate = (dateString) => { // Fixed function name
+        return new Date(dateString).toLocaleDateString('en-US', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
         });
     };
 
     // Priority styling
     const getPriorityClass = (priority) => {
         switch (priority) {
-            case 'High' : 
+            case 'High':
                 return styles.priorityHigh;
-            case 'Medium' :
-                return styles.priorityMedium 
-            case 'Low' :
+            case 'Medium':
+                return styles.priorityMedium;
+            case 'Low':
                 return styles.priorityLow;
+            default:
+                return styles.priorityMedium;
         }
     };
 
     // Category Styling
     const getCategoryClass = (category) => {
         switch (category) {
-            case 'Work' :
+            case 'Work':
                 return styles.categoryWork;
-            case 'Personal' :
+            case 'Personal':
                 return styles.categoryPersonal;
-            case 'Social' :
+            case 'Social':
                 return styles.categorySocial;
-            default :
+            default:
                 return styles.categoryPersonal;
         }
     };
 
-    return(
+    return (
         <div className={`${styles.eventCard} ${event.completed ? styles.completed : ''}`}>
             <div className={styles.eventHeader}>
                 <h3 className={styles.eventTitle}>{event.title}</h3>
@@ -47,21 +49,21 @@ const EventItem = ({ event, onEdit, onDelete }) => {
                 </span>
             </div>
 
-            <p className={styles.eventdescription}>{eventdescription}</p>
+            <p className={styles.eventDescription}>{event.description}</p> {/* Fixed variable */}
 
             <div className={styles.eventDetails}>
                 <div className={styles.detailRow}>
-                    <span className={styles.detailLable}>Date:</span>
-                    <span className={styles.detailValue}>{formatdate(event.date)}</span>
+                    <span className={styles.detailLabel}>Date:</span> {/* Fixed class name */}
+                    <span className={styles.detailValue}>{formatDate(event.date)}</span> {/* Fixed function call */}
                 </div>
 
                 <div className={styles.detailRow}>
-                    <span className={styles.detailLable}>Status :</span>
+                    <span className={styles.detailLabel}>Status :</span> {/* Fixed class name */}
                     <span className={`${styles.statusBadge} ${styles[`status${event.status}`]}`}>{event.status}</span>
                 </div>
 
                 <div className={styles.detailRow}>
-                    <span className={styles.detailLabel}>Category:</span>
+                    <span className={styles.detailLabel}>Category:</span> {/* Fixed class name */}
                     <span className={`${styles.categoryBadge} ${getCategoryClass(event.category)}`}>{event.category}</span>
                 </div>
             </div>
@@ -88,10 +90,9 @@ const EventItem = ({ event, onEdit, onDelete }) => {
                         Delete
                     </button>
                 </div>
-            </div>            
+            </div>
         </div>
     );
-    
 };
 
 export default EventItem;
