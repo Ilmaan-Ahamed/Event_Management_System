@@ -1,8 +1,8 @@
-// Utiliy to create and mangage portal root for modals
+// Utility to create and manage portal root for modals
 
-export const createProtalRoot = () => {
-    const portalRoot       = document.createElement('div');
-    portalRoot.id          = 'modal-portal';
+export const createPortalRoot = () => { // Fixed function name
+    const portalRoot = document.createElement('div');
+    portalRoot.id = 'modal-portal';
     document.body.appendChild(portalRoot);
     return portalRoot;
 };
@@ -10,9 +10,8 @@ export const createProtalRoot = () => {
 // Check if portal root exists, create if not
 export const getPortalRoot = () => {
     let portalRoot = document.getElementById('modal-portal');
-    if (!portalRoot) 
-        {
-        portalRoot = createProtalRoot();
-        }
+    if (!portalRoot) {
+        portalRoot = createPortalRoot(); // Fixed function name
+    }
     return portalRoot;
 };
