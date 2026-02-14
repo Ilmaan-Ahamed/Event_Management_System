@@ -1,18 +1,19 @@
+// Modal.jsx
 import React, { useEffect } from "react";
-import ReactDOM from 'react-dom';
-import { getPortalRoot } from '../utils/portalRoot'; // Fixed import path
-import styles from '../styles/Modal.module.css';
+import ReactDOM from "react-dom";
+import { getPortalRoot } from "../utils/portal.Root"; // Fixed import path
+import styles from "../styles/Modal.module.css";
 
-const Modal = ({ children, onClose }) => { // Fixed prop name
+const Modal = ({ children, onClose }) => {
     // Close modal on Escape key
     useEffect(() => {
         const handleEscape = (e) => {
-            if (e.key === 'Escape') onClose(); // Fixed function name
+            if (e.key === 'Escape') onClose();
         };
 
         document.addEventListener('keydown', handleEscape);
         return () => document.removeEventListener('keydown', handleEscape);
-    }, [onClose]); // Fixed dependency
+    }, [onClose]);
 
     // Prevent Body Scrolling when modal is open
     useEffect(() => {
@@ -23,7 +24,7 @@ const Modal = ({ children, onClose }) => { // Fixed prop name
     }, []);
 
     const handleBackdropClick = (e) => {
-        if (e.target === e.currentTarget) onClose(); // Fixed function name
+        if (e.target === e.currentTarget) onClose();
     };
 
     // Create portal to render modal outside main DOM tree
@@ -32,10 +33,10 @@ const Modal = ({ children, onClose }) => { // Fixed prop name
             <div className={styles.modalContent}>
                 <button 
                     className={styles.closeButton}
-                    onClick={onClose} // Fixed prop name
+                    onClick={onClose}
                     aria-label="Close modal"
                 >
-                    × {/* Fixed: changed "x" to multiplication sign */}
+                    ×
                 </button>
                 {children}
             </div>

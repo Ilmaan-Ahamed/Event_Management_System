@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from '../styles/EventForm.module.css';
 
-const EventForm = ({ event, onSubmit, onCancel }) => { // Fixed component name
+const EventForm = ({ event, onSubmit, onCancel }) => {
     // Initialize form state
-    const [formData, setFormData] = useState({ // Fixed: useState instead of useEffect
+    const [formData, setFormData] = useState({
         title: '',
         description: '',
         date: '',
@@ -27,7 +27,7 @@ const EventForm = ({ event, onSubmit, onCancel }) => { // Fixed component name
     }, [event]);
 
     // Handle input changes for all fields
-    const handleInputChange = (e) => { // Fixed function name
+    const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData(prev => ({
             ...prev,
@@ -41,7 +41,7 @@ const EventForm = ({ event, onSubmit, onCancel }) => { // Fixed component name
 
         // Basic validation
         if (!formData.title.trim() || !formData.date) {
-            alert('Please Fill in all Required fields'); // Fixed spelling
+            alert('Please Fill in all Required fields');
             return;
         }
         
@@ -51,7 +51,7 @@ const EventForm = ({ event, onSubmit, onCancel }) => { // Fixed component name
     };
 
     return (
-        <form onSubmit={handleSubmit} className={styles.form}> {/* Fixed: onSubmit */}
+        <form onSubmit={handleSubmit} className={styles.form}>
             <h2>{event ? 'Edit Event' : 'Add New Event'}</h2>
 
             {/* Text input */}
@@ -62,7 +62,7 @@ const EventForm = ({ event, onSubmit, onCancel }) => { // Fixed component name
                     name="title" 
                     id="title" 
                     value={formData.title}
-                    onChange={handleInputChange} {/* Fixed function name */}
+                    onChange={handleInputChange}
                     placeholder="Enter Event title"
                     required
                 />
@@ -75,7 +75,7 @@ const EventForm = ({ event, onSubmit, onCancel }) => { // Fixed component name
                     name="description" 
                     id="description"
                     value={formData.description}
-                    onChange={handleInputChange} {/* Fixed function name */}
+                    onChange={handleInputChange}
                     placeholder="Enter event description"
                     rows="4"    
                 />
@@ -85,11 +85,11 @@ const EventForm = ({ event, onSubmit, onCancel }) => { // Fixed component name
             <div className={styles.formGroup}>
                 <label htmlFor="date">Date *</label>
                 <input 
-                    type="date" {/* Fixed: changed from "text" to "date" */}
+                    type="date"
                     id="date" 
                     name="date"
                     value={formData.date}
-                    onChange={handleInputChange} {/* Fixed function name */}
+                    onChange={handleInputChange}
                     required
                 />
             </div>
@@ -105,9 +105,9 @@ const EventForm = ({ event, onSubmit, onCancel }) => { // Fixed component name
                                 name="category"
                                 value={category}
                                 checked={formData.category === category}
-                                onChange={handleInputChange} {/* Fixed function name */}
+                                onChange={handleInputChange}
                             />
-                            <span>{category.charAt(0).toUpperCase() + category.slice(1)}</span> {/* Fixed: added () */}
+                            <span>{category.charAt(0).toUpperCase() + category.slice(1)}</span>
                         </label>
                     ))}
                 </div>
@@ -120,7 +120,7 @@ const EventForm = ({ event, onSubmit, onCancel }) => { // Fixed component name
                     name="priority" 
                     id="priority"
                     value={formData.priority}
-                    onChange={handleInputChange} {/* Fixed function name */}
+                    onChange={handleInputChange}
                     className={styles.select}
                 >
                     <option value="Low">Low</option>
@@ -131,14 +131,14 @@ const EventForm = ({ event, onSubmit, onCancel }) => { // Fixed component name
 
             {/* CheckBox */}
             <div className={styles.formGroup}>
-                <label className={styles.checkboxLabel}> {/* Fixed class name */}
+                <label className={styles.checkboxLabel}>
                     <input 
                         type="checkbox" 
                         name="completed"
                         checked={formData.completed}
-                        onChange={handleInputChange} {/* Fixed function name */}
+                        onChange={handleInputChange}
                     />
-                    <span>Mark as completed </span>
+                    <span>Mark as completed</span>
                 </label>
             </div>
 
@@ -163,4 +163,4 @@ const EventForm = ({ event, onSubmit, onCancel }) => { // Fixed component name
     );
 };
 
-export default EventForm; // Fixed export name
+export default EventForm;
