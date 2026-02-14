@@ -25,4 +25,25 @@ const EventFrom = ({ event, onsubmit, oncancel}) => {
                         });
                 }
     }, [event]);
+
+    // Handle input changes for all fields
+    const handleinputChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormDate(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    // Handle form submission 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // Basic validation
+        if (!formData.title.trim() || !formData.date){
+            alert('Please Fill in all Requried fields')
+            return;
+        }
+        onsubmit(formData);
+    };
 }
