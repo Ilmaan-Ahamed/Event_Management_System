@@ -1,97 +1,122 @@
 /* EventItem.module.css */
-/* Event item component styles with hover effects */
-
 .eventCard {
   background: white;
-  border-radius: var(--border-radius);
-  padding: var(--spacing-lg);
-  box-shadow: var(--box-shadow);
-  border: 1px solid var(--gray-light);
-  transition: all var(--transition-normal);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: 16px;
   position: relative;
   overflow: hidden;
 }
 
 .eventCard:hover {
   transform: translateY(-4px);
-  box-shadow: var(--box-shadow-lg);
-  border-color: var(--primary-color);
+  box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.1);
+  border-color: #6366f1;
+}
+
+.highPriorityCard {
+  border-left: 4px solid #ef4444;
+}
+
+.priorityIndicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #ef4444, #f87171);
 }
 
 .eventCard.completed {
-  opacity: 0.8;
-  background: linear-gradient(to right, white 95%, var(--success-color) 5%);
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
 }
 
-.eventCard.completed::after {
-  content: "✓";
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: var(--success-color);
-  font-size: var(--font-size-lg);
-  font-weight: bold;
+.eventCard.completed h3,
+.eventCard.completed p {
+  color: #94a3b8;
+  text-decoration: line-through;
 }
 
 .eventHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: var(--spacing-md);
+  gap: 12px;
+}
+
+.titleArea {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .eventTitle {
-  font-size: var(--font-size-lg);
-  color: var(--dark-color);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
   margin: 0;
-  flex: 1;
 }
 
 .priorityBadge {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-xs);
-  font-weight: 600;
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
+  letter-spacing: 0.05em;
 }
 
 .priorityHigh {
-  background-color: rgba(249, 65, 68, 0.1);
-  color: var(--danger-color);
-  border: 1px solid var(--danger-color);
+  background-color: #fee2e2;
+  color: #ef4444;
 }
 
 .priorityMedium {
-  background-color: rgba(248, 150, 30, 0.1);
-  color: var(--warning-color);
-  border: 1px solid var(--warning-color);
+  background-color: #fef3c7;
+  color: #d97706;
 }
 
 .priorityLow {
-  background-color: rgba(76, 201, 240, 0.1);
-  color: var(--success-color);
-  border: 1px solid var(--success-color);
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.countdown {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #f1f5f9;
+  color: #475569;
+  white-space: nowrap;
+}
+
+.overdue {
+  background: #fee2e2;
+  color: #b91c1c;
 }
 
 .eventDescription {
-  color: var(--gray-dark);
-  line-height: 1.5;
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.6;
   margin: 0;
-  flex: 1;
 }
 
 .eventDetails {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-md) 0;
-  border-top: 1px solid var(--gray-light);
-  border-bottom: 1px solid var(--gray-light);
+  gap: 10px;
+  padding: 16px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
 }
 
 .detailRow {
@@ -101,129 +126,110 @@
 }
 
 .detailLabel {
-  font-weight: 600;
-  color: var(--gray-medium);
-  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: #64748b;
+  font-size: 0.85rem;
 }
 
 .detailValue {
-  color: var(--dark-color);
-  font-weight: 500;
+  color: #1e293b;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 
 .statusBadge,
 .categoryBadge {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-xs);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
   font-weight: 600;
-  text-transform: uppercase;
 }
 
-.statusupcoming {
-  background-color: rgba(67, 97, 238, 0.1);
-  color: var(--primary-color);
+.statusUpcoming {
+  background: #e0e7ff;
+  color: #4338ca;
 }
 
-.statuspast {
-  background-color: rgba(114, 9, 183, 0.1);
-  color: var(--secondary-color);
-}
-
-.categoryBadge {
-  background-color: rgba(76, 201, 240, 0.1);
-  color: var(--success-color);
+.statusPast {
+  background: #f1f5f9;
+  color: #64748b;
 }
 
 .categoryWork {
-  background-color: rgba(67, 97, 238, 0.1);
-  color: var(--primary-color);
+  background: #dbeafe;
+  color: #2563eb;
 }
 
 .categoryPersonal {
-  background-color: rgba(247, 37, 133, 0.1);
-  color: var(--accent-color);
+  background: #fce7f3;
+  color: #db2777;
 }
 
 .categorySocial {
-  background-color: rgba(76, 201, 240, 0.1);
-  color: var(--success-color);
-}
-
-.categoryEducation {
-  background-color: rgba(114, 9, 183, 0.1);
-  color: var(--secondary-color);
+  background: #ffedd5;
+  color: #ea580c;
 }
 
 .eventActions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto;
+  margin-top: 8px;
 }
 
 .completedLabel {
-  color: var(--success-color);
-  font-weight: 600;
-  font-size: var(--font-size-sm);
+  color: #16a34a;
+  font-weight: 700;
+  font-size: 0.85rem;
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: 6px;
+}
+
+.checkIcon {
+  font-size: 1rem;
 }
 
 .actionButtons {
   display: flex;
-  gap: var(--spacing-sm);
+  gap: 8px;
 }
 
 .editButton,
 .deleteButton {
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--border-radius-sm);
-  font-size: var(--font-size-sm);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  border: none;
-  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+  transition: all 0.2s;
 }
 
 .editButton {
-  background-color: var(--light-color);
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  background-color: white;
+  color: #6366f1;
+  border-color: #6366f1;
 }
 
 .editButton:hover {
-  background-color: var(--primary-color);
+  background-color: #6366f1;
   color: white;
 }
 
 .deleteButton {
-  background-color: var(--light-color);
-  color: var(--danger-color);
-  border: 1px solid var(--danger-color);
+  background-color: white;
+  color: #ef4444;
+  border-color: #ef4444;
 }
 
 .deleteButton:hover {
-  background-color: var(--danger-color);
+  background-color: #ef4444;
   color: white;
 }
 
-/* Responsive Event Card */
 @media (max-width: 480px) {
   .eventHeader {
     flex-direction: column;
-    align-items: flex-start;
-    gap: var(--spacing-sm);
-  }
-  
-  .eventActions {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--spacing-md);
-  }
-  
-  .actionButtons {
-    justify-content: flex-end;
   }
 }
