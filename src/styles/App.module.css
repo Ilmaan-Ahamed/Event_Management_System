@@ -182,7 +182,7 @@ footer {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .filterGroup {
     justify-content: space-between;
   }
@@ -193,12 +193,12 @@ footer {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .actionGroup {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .searchWrapper {
     min-width: unset;
   }
