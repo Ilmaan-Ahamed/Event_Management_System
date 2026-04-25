@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from '../styles/EventItem.module.css';
 
 const EventItem = ({ event, onEdit, onDelete }) => {
+    const [expanded, setExpanded] = useState(false);
     // Format date for display
     const formatDate = (dateString) => {
         return new Date(dateString).toLocaleDateString('en-US', {
@@ -48,8 +49,25 @@ const EventItem = ({ event, onEdit, onDelete }) => {
         }
     };
 
+    const truncatedDescription = event.description.length > 120 ? event.description.slice(0, 120) + '…' : event.description;
+
+    const handleToggle = () => setExpanded(prev => !prev);
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleToggle();
+        }
+    };
+
     return (
-        <div className={`${styles.eventCard} ${event.completed ? styles.completed : ''} ${event.priority === 'High' ? styles.highPriorityCard : ''}`}>
+        <div
+            className={`${styles.eventCard} ${event.completed ? styles.completed : ''} ${event.priority === 'High' ? styles.highPriorityCard : ''}`}
+            role="button"
+            tabIndex={0}
+            aria-expanded={expanded}
+            onClick={handleToggle}
+            onKeyDown={handleKeyDown}
+        >
             {event.priority === 'High' && <div className={styles.priorityIndicator}></div>}
 
             <div className={styles.eventHeader}>
@@ -66,7 +84,14 @@ const EventItem = ({ event, onEdit, onDelete }) => {
                 )}
             </div>
 
-            <p className={styles.eventDescription}>{event.description}</p>
+            <p className={styles.eventDescription}>{expanded ? event.description : truncatedDescription}</p>
+
+            {expanded && event.recurrence && (
+                <div className={styles.expandedSection}>
+                    <span className={styles.detailLabel}>🔁 Recurrence</span>
+                    <span className={styles.detailValue}>{event.recurrence}</span>
+                </div>
+            )}
 
             <div className={styles.eventDetails}>
                 <div className={styles.detailRow}>
@@ -96,7 +121,7 @@ const EventItem = ({ event, onEdit, onDelete }) => {
 
                 <div className={styles.actionButtons}>
                     <button
-                        onClick={() => onEdit(event)}
+                        onClick={(e) => { e.stopPropagation(); onEdit(event); }}
                         className={styles.editButton}
                         aria-label="Edit event"
                     >
@@ -104,7 +129,7 @@ const EventItem = ({ event, onEdit, onDelete }) => {
                     </button>
 
                     <button
-                        onClick={() => onDelete(event.id)}
+                        onClick={(e) => { e.stopPropagation(); onDelete(event.id); }}
                         className={styles.deleteButton}
                         aria-label="Delete Event"
                     >

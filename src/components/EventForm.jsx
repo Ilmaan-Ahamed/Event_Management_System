@@ -10,6 +10,7 @@ const EventForm = ({ event, onSubmit, onCancel }) => {
         category: 'Personal',
         priority: 'Medium',
         completed: false,
+        recurrence: 'None',
     });
 
     // Populate form if editing existing event
@@ -22,6 +23,7 @@ const EventForm = ({ event, onSubmit, onCancel }) => {
                 category: event.category,
                 priority: event.priority,
                 completed: event.completed || false,
+                recurrence: event.recurrence || 'None',
             });
         }
     }, [event]);
@@ -126,6 +128,22 @@ const EventForm = ({ event, onSubmit, onCancel }) => {
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option> 
                     <option value="High">High</option>   
+                </select>
+            </div>
+
+            <div className={styles.formGroup}>
+                <label htmlFor="recurrence">Recurrence</label>
+                <select
+                    name="recurrence"
+                    id="recurrence"
+                    value={formData.recurrence}
+                    onChange={handleInputChange}
+                    className={styles.select}
+                >
+                    <option value="None">None</option>
+                    <option value="Daily">Daily</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Monthly">Monthly</option>
                 </select>
             </div>
 

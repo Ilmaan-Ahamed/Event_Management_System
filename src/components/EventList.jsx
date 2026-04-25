@@ -7,7 +7,7 @@ const EventList = ({ events, onEdit, onDelete }) => {
     if (events.length === 0){
         return (
             <div className={styles.emptyState}>
-                <p>No Events Found. Add Your First Event!</p>
+                <p>No events match the current filters yet. Try adjusting the search, date range, or categories.</p>
             </div>
         );
     }
