@@ -57,13 +57,22 @@ function App() {
     const [editingEvent, setEditingEvent] = useState(null);
     const [currentFilter, setCurrentFilter] = useState('all');
     const [searchQuery, setSearchQuery] = useState(''); // New search state
-    const [currentCategoryFilter, setCurrentCategoryFilter] = useState('all'); // New category filter
+    const [sortBy, setSortBy] = useState('date');
+    const [priorityFilter, setPriorityFilter] = useState('all');
+    const [categoryFilters, setCategoryFilters] = useState(() => {
+        const saved = localStorage.getItem('eventora_category_filters');
+        return saved ? JSON.parse(saved) : ['all'];
+    });
+    const [fromDate, setFromDate] = useState('');
+    const [toDate, setToDate] = useState('');
+    const [theme, setTheme] = useState(() => localStorage.getItem('eventora_theme') || 'light');
 
     // Event Handlers 
     const handleAddEvent = (eventData) => {
         const newEvent = {
             ...eventData,
             id: Date.now(),
+            recurrence: eventData.recurrence || 'None',
             status: new Date(eventData.date) >= new Date().setHours(0,0,0,0) ? 'Upcoming' : 'Past'
         };
         setEvents([...events, newEvent]);
@@ -74,6 +83,7 @@ function App() {
         setEvents(events.map(event =>
             event.id === updatedEvent.id ? {
                 ...updatedEvent,
+                recurrence: updatedEvent.recurrence || 'None',
                 status: new Date(updatedEvent.date) >= new Date().setHours(0,0,0,0) ? 'Upcoming' : 'Past'
             } : event
         ));
@@ -85,6 +95,22 @@ function App() {
         if (window.confirm('Are you sure you want to delete this event?')) {
             setEvents(events.filter(event => event.id !== id));
         }
+    };
+
+    const toggleCategoryFilter = (category) => {
+        if (category === 'all') {
+            setCategoryFilters(['all']);
+            return;
+        }
+
+        setCategoryFilters(prev => {
+            const selected = prev.includes('all') ? [] : [...prev];
+            if (selected.includes(category)) {
+                const nextFilters = selected.filter(item => item !== category);
+                return nextFilters.length ? nextFilters : ['all'];
+            }
+            return [...selected, category];
+        });
     };
 
     const handleEditClick = (event) => {
@@ -105,20 +131,58 @@ function App() {
         else if (currentFilter === 'Completed') matchesStatus = event.completed;
 
         // Category Filter
-        const matchesCategory = currentCategoryFilter === 'all' || event.category === currentCategoryFilter;
+        const matchesCategory = categoryFilters.includes('all') || categoryFilters.includes(event.category);
 
-        return matchesSearch && matchesStatus && matchesCategory;
+        // Priority Filter
+        const matchesPriority = priorityFilter === 'all' || event.priority === priorityFilter;
+
+        // Date range filter
+        const eventDate = new Date(event.date);
+        const from = fromDate ? new Date(fromDate) : null;
+        const to = toDate ? new Date(toDate) : null;
+        const matchesRange = (!from || eventDate >= from) && (!to || eventDate <= to);
+
+        return matchesSearch && matchesStatus && matchesCategory && matchesPriority && matchesRange;
+    });
+
+    const sortedEvents = [...filteredEvents].sort((a, b) => {
+        if (sortBy === 'title') return a.title.localeCompare(b.title);
+        if (sortBy === 'priority') {
+            const priorityOrder = { High: 1, Medium: 2, Low: 3 };
+            return priorityOrder[a.priority] - priorityOrder[b.priority];
+        }
+        return new Date(a.date) - new Date(b.date);
     });
 
     // Unique categories for the dropdown
     const categoriesList = ['all', ...new Set(events.map(e => e.category))];
 
+    useEffect(() => {
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        localStorage.setItem('eventora_theme', theme);
+    }, [theme]);
+
+    useEffect(() => {
+        localStorage.setItem('eventora_category_filters', JSON.stringify(categoryFilters));
+    }, [categoryFilters]);
+
     return (
         <div className={styles.App}>
             <header className={styles.header}>
                 <div className={styles.headerContent}>
-                    <h1>🔰 Eventora 🔰</h1>
-                    <p>Modern Event Management Application</p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                        <div>
+                            <h1>🔰 Eventora 🔰</h1>
+                            <p>Modern Event Management Application</p>
+                        </div>
+                        <button
+                            className={styles.themeToggle}
+                            onClick={() => setTheme(prev => prev === 'light' ? 'dark' : 'light')}
+                            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+                        >
+                            {theme === 'light' ? '🌙' : '☀️'}
+                        </button>
+                    </div>
                 </div>
             </header>
 
@@ -149,8 +213,9 @@ function App() {
 
                     <div className={styles.filterGroup}>
                         <div className={styles.filter}>
-                            <label> Status: </label>
-                            <select 
+                            <label htmlFor="statusFilter">Status:</label>
+                            <select
+                                id="statusFilter"
                                 value={currentFilter}
                                 onChange={(e) => setCurrentFilter(e.target.value)}
                                 className={styles.filterSelect}
@@ -163,26 +228,79 @@ function App() {
                         </div>
 
                         <div className={styles.filter}>
-                            <label> Category: </label>
-                            <select 
-                                value={currentCategoryFilter}
-                                onChange={(e) => setCurrentCategoryFilter(e.target.value)}
+                            <label htmlFor="sortBy">Sort by:</label>
+                            <select
+                                id="sortBy"
+                                value={sortBy}
+                                onChange={(e) => setSortBy(e.target.value)}
                                 className={styles.filterSelect}
                             >
-                                {categoriesList.map(cat => (
-                                    <option key={cat} value={cat}>{cat.charAt(0).toUpperCase() + cat.slice(1)}</option>
-                                ))}
+                                <option value="date">Date</option>
+                                <option value="priority">Priority</option>
+                                <option value="title">Title</option>
                             </select>
                         </div>
+
+                        <div className={styles.filter}>
+                            <label htmlFor="priorityFilter">Priority:</label>
+                            <select
+                                id="priorityFilter"
+                                value={priorityFilter}
+                                onChange={(e) => setPriorityFilter(e.target.value)}
+                                className={styles.filterSelect}
+                            >
+                                <option value="all">All Priorities</option>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className={styles.filterGroup}>
+                        <div className={styles.filter}>
+                            <label htmlFor="fromDate">From:</label>
+                            <input
+                                type="date"
+                                id="fromDate"
+                                value={fromDate}
+                                onChange={(e) => setFromDate(e.target.value)}
+                                className={styles.filterSelect}
+                            />
+                        </div>
+                        <div className={styles.filter}>
+                            <label htmlFor="toDate">To:</label>
+                            <input
+                                type="date"
+                                id="toDate"
+                                value={toDate}
+                                onChange={(e) => setToDate(e.target.value)}
+                                className={styles.filterSelect}
+                            />
+                        </div>
+                    </div>
+
+                    <div className={styles.categoryFilterGroup} aria-label="Category filters">
+                        <span className={styles.filterLabel}>Categories:</span>
+                        {categoriesList.map(category => (
+                            <button
+                                key={category}
+                                type="button"
+                                className={`${styles.categoryChip} ${categoryFilters.includes('all') || categoryFilters.includes(category) ? styles.categoryChipActive : ''}`}
+                                onClick={() => toggleCategoryFilter(category)}
+                            >
+                                {category === 'all' ? 'All' : category}
+                            </button>
+                        ))}
                     </div>
                 </div>
                 
                 <div className={styles.resultsCount}>
-                    Showing {filteredEvents.length} {filteredEvents.length === 1 ? 'event' : 'events'}
+                    Showing {sortedEvents.length} {sortedEvents.length === 1 ? 'event' : 'events'}
                 </div>
 
                 <EventList 
-                    events={filteredEvents}
+                    events={sortedEvents}
                     onEdit={handleEditClick}
                     onDelete={handleDeleteEvent}
                 />
