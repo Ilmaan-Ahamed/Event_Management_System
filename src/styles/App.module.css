@@ -92,8 +92,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  max-width: 300px;
-  width: 100%;
+  flex: 1;
+  min-width: 250px;
 }
 
 .searchInput {
@@ -122,10 +122,9 @@
 }
 
 .filterGroup {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   width: 100%;
 }
 
@@ -133,6 +132,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .filter label {
@@ -177,7 +177,6 @@
   flex-wrap: wrap;
   padding: 16px 0;
   border-top: 1px solid var(--surface-border);
-  justify-content: center;
   width: 100%;
 }
 
