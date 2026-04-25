@@ -22,7 +22,7 @@
 .emptyState {
   text-align: center;
   padding: var(--spacing-xl);
-  background: var(--light-color);
+  background: var(--surface-color);
   border-radius: var(--border-radius);
   border: 2px dashed var(--gray-medium);
   color: var(--gray-dark);

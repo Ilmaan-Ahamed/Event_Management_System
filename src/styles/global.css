@@ -3,10 +3,25 @@
   --primary-color: #0f1220;
   --primary-dark: #0e1534;
   --secondary-color: #504e51;
-  --accent-color: #875f71;
-  --success-color: #ff0000;
-  --warning-color: #41321f;
-  --danger-color: #7e3e40;
+  --accent-color: #6366f1;
+  --success-color: #16a34a;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+
+  --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --panel-bg: #ffffff;
+  --surface-color: #ffffff;
+  --surface-border: #e2e8f0;
+  --surface-muted: #f8fafc;
+  --text-color: #0f172a;
+  --muted: #475569;
+  --input-bg: #ffffff;
+  --input-border: #e2e8f0;
+  --header-bg: linear-gradient(135deg, #6366f1, #a855f7);
+  --filter-bg: #f8fafc;
+  --button-bg: #6366f1;
+  --button-hover: #4f46e5;
+  --backdrop: rgba(0, 0, 0, 0.5);
   
   /* Neutral Colors */
   --light-color: #f8f9fa;
@@ -50,10 +65,27 @@
 
 body {
   font-family: var(--font-primary);
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  color: var(--dark-color);
+  background: var(--body-bg);
+  color: var(--text-color);
   line-height: 1.6;
   min-height: 100vh;
+}
+
+.dark {
+  --body-bg: #0f172a;
+  --panel-bg: #111827;
+  --surface-color: #1f2937;
+  --surface-border: #374151;
+  --surface-muted: #111827;
+  --text-color: #e2e8f0;
+  --muted: #94a3b8;
+  --input-bg: #111827;
+  --input-border: #374151;
+  --header-bg: linear-gradient(135deg, #4338ca, #7c3aed);
+  --filter-bg: #111827;
+  --button-bg: #4338ca;
+  --button-hover: #3730a3;
+  --backdrop: rgba(0, 0, 0, 0.7);
 }
 
 /* Utility Classes */

@@ -17,13 +17,13 @@
   color: white;
   border-radius: 16px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
+  color: var(--text-color);
 
 .headerContent h1 {
   font-size: 2.5rem;
   margin-bottom: 8px;
   letter-spacing: -0.025em;
-}
+  background: var(--header-bg);
 
 .headerContent p {
   font-size: 1.1rem;
@@ -31,7 +31,7 @@
 }
 
 .main {
-  flex: 1;
+  background: var(--panel-bg);
   padding: 24px;
   background: #ffffff;
   border-radius: 16px;
@@ -43,12 +43,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  background: var(--filter-bg);
   flex-wrap: wrap;
   gap: 16px;
   background: #f8fafc;
   padding: 20px;
-  border-radius: 12px;
+  background-color: var(--button-bg);
 }
 
 .actionGroup {
@@ -59,14 +59,14 @@
 }
 
 .addButton {
-  background-color: #6366f1;
+  background-color: var(--button-hover);
   color: white;
   border: none;
   padding: 12px 24px;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  border: 2px solid var(--input-border);
   white-space: nowrap;
 }
 
@@ -75,21 +75,34 @@
   transform: translateY(-1px);
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
-
+  border-color: var(--button-bg);
 .searchWrapper {
   position: relative;
   display: flex;
   align-items: center;
-  min-width: 250px;
+  border: 2px solid var(--input-border);
 }
 
 .searchInput {
   width: 100%;
   padding: 12px 16px 12px 40px;
   border: 2px solid #e2e8f0;
+.themeToggle {
+  background-color: transparent;
+  border: 2px solid rgba(255,255,255,0.7);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.themeToggle:hover {
+  transform: translateY(-1px);
+  background-color: rgba(255,255,255,0.15);
+}
   border-radius: 8px;
   font-size: 0.95rem;
-  transition: all 0.2s ease;
+  color: var(--muted);
 }
 
 .searchInput:focus {
@@ -118,18 +131,74 @@
 
 .filter label {
   font-weight: 600;
-  color: #475569;
+  color: var(--text-color);
   font-size: 0.9rem;
 }
 
 .filterSelect {
   padding: 10px 14px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--input-border);
   border-radius: 8px;
-  background-color: white;
+  background-color: var(--input-bg);
   cursor: pointer;
-  color: #1e293b;
+  color: var(--text-color);
   font-weight: 500;
+}
+
+.themeToggle {
+  background-color: transparent;
+  border: 2px solid rgba(255,255,255,0.7);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  font-size: 1.2rem;
+}
+
+.themeToggle:hover {
+  transform: translateY(-1px);
+  background-color: rgba(255,255,255,0.15);
+}
+
+.categoryFilterGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 16px 0;
+  border-top: 1px solid var(--surface-border);
+}
+
+.filterLabel {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.categoryChip {
+  padding: 8px 16px;
+  border: 2px solid var(--input-border);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.categoryChip:hover {
+  border-color: var(--button-bg);
+  background-color: var(--surface-muted);
+}
+
+.categoryChipActive {
+  background-color: var(--button-bg);
+  color: white;
+  border-color: var(--button-bg);
 }
 
 .resultsCount {
