@@ -170,19 +170,17 @@ function App() {
         <div className={styles.App}>
             <header className={styles.header}>
                 <div className={styles.headerContent}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-                        <div>
-                            <h1>🔰 Eventora 🔰</h1>
-                            <p>Modern Event Management Application</p>
-                        </div>
-                        <button
-                            className={styles.themeToggle}
-                            onClick={() => setTheme(prev => prev === 'light' ? 'dark' : 'light')}
-                            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-                        >
-                            {theme === 'light' ? '🌙' : '☀️'}
-                        </button>
+                    <div>
+                        <h1>🔰 Eventora 🔰</h1>
+                        <p>Modern Event Management Application</p>
                     </div>
+                    <button
+                        className={styles.themeToggle}
+                        onClick={() => setTheme(prev => prev === 'light' ? 'dark' : 'light')}
+                        aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+                    >
+                        {theme === 'light' ? '🌙' : '☀️'}
+                    </button>
                 </div>
             </header>
 

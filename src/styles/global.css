@@ -81,10 +81,10 @@ body {
   --muted: #94a3b8;
   --input-bg: #111827;
   --input-border: #374151;
-  --header-bg: linear-gradient(135deg, #4338ca, #7c3aed);
+  --header-bg: linear-gradient(135deg, #282734, #281945);
   --filter-bg: #111827;
-  --button-bg: #4338ca;
-  --button-hover: #3730a3;
+  --button-bg: #706ca4;
+  --button-hover: #000000;
   --backdrop: rgba(0, 0, 0, 0.7);
 }
 
