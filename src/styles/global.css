@@ -49,8 +49,10 @@
   /* Borders & Shadows */
   --border-radius: 8px;
   --border-radius-sm: 4px;
-  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --box-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --box-shadow: 0 4px 6px var(--shadow-color-soft);
+  --box-shadow-lg: 0 10px 15px var(--shadow-color-soft);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-soft: rgba(0, 0, 0, 0.06);
   
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -85,6 +87,8 @@ body {
   --filter-bg: #111827;
   --button-bg: #706ca4;
   --button-hover: #000000;
+  --shadow-color: rgba(0, 0, 0, 0.35);
+  --shadow-color-soft: rgba(0, 0, 0, 0.2);
   --backdrop: rgba(0, 0, 0, 0.7);
 }
 
