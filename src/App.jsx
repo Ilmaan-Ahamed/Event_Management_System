@@ -229,6 +229,23 @@ function App() {
         localStorage.setItem('eventora_category_filters', JSON.stringify(categoryFilters));
     }, [categoryFilters]);
 
+    if (!user) {
+        return (
+            <AuthPage
+                authMode={authMode}
+                setAuthMode={(mode) => {
+                    setAuthMode(mode);
+                    setAuthError('');
+                }}
+                onLogin={handleLogin}
+                onSignUp={handleSignUp}
+                authError={authError}
+                theme={theme}
+                toggleTheme={() => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))}
+            />
+        );
+    }
+
     return (
         <div className={styles.App}>
             <header className={styles.header}>
@@ -236,6 +253,12 @@ function App() {
                     <div>
                         <h1>🔰 Eventora 🔰</h1>
                         <p>Modern Event Management Application</p>
+                    </div>
+                    <div className={styles.userInfo}>
+                        <span>Signed in as {user?.name || user?.email}</span>
+                        <button className={styles.logoutButton} onClick={handleLogout}>
+                            Logout
+                        </button>
                     </div>
                     <button
                         className={styles.themeToggle}
