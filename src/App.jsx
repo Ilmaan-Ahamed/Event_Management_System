@@ -2,6 +2,7 @@ import React, { useState, useEffect, lazy, Suspense } from "react";
 import EventList from './components/EventList';
 import EventForm from './components/EventForm'; 
 import Modal from './components/Modal';
+import AuthPage from './components/AuthPage';
 import styles from './styles/App.module.css';
 
 // Lazy load Admin Panel for performance optimization
@@ -66,6 +67,16 @@ function App() {
     const [fromDate, setFromDate] = useState('');
     const [toDate, setToDate] = useState('');
     const [theme, setTheme] = useState(() => localStorage.getItem('eventora_theme') || 'light');
+    const [authMode, setAuthMode] = useState('login');
+    const [authError, setAuthError] = useState('');
+    const [user, setUser] = useState(() => {
+        const savedUser = localStorage.getItem('eventora_user');
+        return savedUser ? JSON.parse(savedUser) : null;
+    });
+    const [users, setUsers] = useState(() => {
+        const savedUsers = localStorage.getItem('eventora_users');
+        return savedUsers ? JSON.parse(savedUsers) : [];
+    });
 
     // Event Handlers 
     const handleAddEvent = (eventData) => {
@@ -118,6 +129,46 @@ function App() {
         setIsModalOpen(true);
     };
 
+    const handleLogin = ({ email, password }) => {
+        const matchedUser = users.find(
+            (account) => account.email.toLowerCase() === email.toLowerCase() && account.password === password
+        );
+
+        if (!matchedUser) {
+            setAuthError('Invalid email or password. Please try again.');
+            return;
+        }
+
+        setUser({ name: matchedUser.name, email: matchedUser.email });
+        setAuthError('');
+    };
+
+    const handleSignUp = ({ name, email, password, confirmPassword }) => {
+        if (!name || !email || !password || !confirmPassword) {
+            setAuthError('Please fill in all required fields.');
+            return;
+        }
+        if (password !== confirmPassword) {
+            setAuthError('Passwords do not match.');
+            return;
+        }
+        if (users.some((account) => account.email.toLowerCase() === email.toLowerCase())) {
+            setAuthError('An account already exists with that email.');
+            return;
+        }
+
+        const newAccount = { name, email, password };
+        setUsers((prevUsers) => [...prevUsers, newAccount]);
+        setUser({ name, email });
+        setAuthError('');
+    };
+
+    const handleLogout = () => {
+        setUser(null);
+        setAuthMode('login');
+        setAuthError('');
+    };
+
     // Advanced Filtering
     const filteredEvents = events.filter(event => {
         // Search Filter
@@ -161,6 +212,18 @@ function App() {
         document.documentElement.classList.toggle('dark', theme === 'dark');
         localStorage.setItem('eventora_theme', theme);
     }, [theme]);
+
+    useEffect(() => {
+        if (user) {
+            localStorage.setItem('eventora_user', JSON.stringify(user));
+        } else {
+            localStorage.removeItem('eventora_user');
+        }
+    }, [user]);
+
+    useEffect(() => {
+        localStorage.setItem('eventora_users', JSON.stringify(users));
+    }, [users]);
 
     useEffect(() => {
         localStorage.setItem('eventora_category_filters', JSON.stringify(categoryFilters));
