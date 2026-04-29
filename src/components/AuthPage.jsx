@@ -49,7 +49,7 @@ const AuthPage = ({
             </p>
             {authMode === 'login' && (
               <p className={styles.demoHint}>
-                Demo: demo@example.com / demo1234
+                Demo: demo@gmail.com / demo1234
               </p>
             )}
           </div>
