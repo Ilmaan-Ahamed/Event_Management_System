@@ -36,6 +36,13 @@
   line-height: 1.6;
 }
 
+.demoHint {
+  margin-top: 10px;
+  color: var(--button-bg);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
 .authForm {
   display: grid;
   gap: 18px;
