@@ -47,6 +47,11 @@ const AuthPage = ({
                 ? 'Sign in to manage your events with Eventora.'
                 : 'Sign up to start creating and tracking your events.'}
             </p>
+            {authMode === 'login' && (
+              <p className={styles.demoHint}>
+                Demo: demo@example.com / demo1234
+              </p>
+            )}
           </div>
           <button
             type="button"

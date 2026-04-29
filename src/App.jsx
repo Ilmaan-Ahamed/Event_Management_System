@@ -41,6 +41,14 @@ const INITIAL_EVENTS = [
     },
 ];
 
+const INITIAL_USERS = [
+    {
+        name: 'Demo User',
+        email: 'demo@example.com',
+        password: 'demo1234',
+    },
+];
+
 function App() {
     // state for events data - Load from Local Storage or use Initial
     const [events, setEvents] = useState(() => {
@@ -75,7 +83,7 @@ function App() {
     });
     const [users, setUsers] = useState(() => {
         const savedUsers = localStorage.getItem('eventora_users');
-        return savedUsers ? JSON.parse(savedUsers) : [];
+        return savedUsers ? JSON.parse(savedUsers) : INITIAL_USERS;
     });
 
     // Event Handlers 
